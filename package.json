@@ -1,0 +1,79 @@
+{
+  "name": "@ll-fe/slices-for-redux",
+  "version": "0.1.0",
+  "description": "Slices and SliceGroups that scale. Reduce boilerplate. Split code.",
+  "author": "VMware, Inc",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vmware/slices-for-redux/issues"
+  },
+  "homepage": "https://github.com/vmware/slices-for-redux#readme",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vmware/slices-for-redux.git"
+  },
+  "keywords": [
+    "immer",
+    "modular redux",
+    "reducer",
+    "redux",
+    "rootReducer",
+    "slice",
+    "code splitting"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/slices-for-redux.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdx build",
+    "format": "prettier --write \"src/*.ts\" \"**/*.md\"",
+    "format:check": "prettier --list-different \"src/*.ts\" \"**/*.md\"",
+    "lint": "tsdx lint src",
+    "prepare": "npm run lint && npm run format:check && npm run test-coverage && npm run build",
+    "start": "tsdx watch",
+    "test": "tsdx test",
+    "test-coverage": "tsdx test --coverage",
+    "test-watch": "tsdx test --watch"
+  },
+  "peerDependencies": {
+    "@reduxjs/toolkit": "1.4.x",
+    "redux": "4.0.x"
+  },
+  "devDependencies": {
+    "@vmw/eslint-config-vmware-react": "0.1.0",
+    "@types/jest": "26.0.13",
+    "@reduxjs/toolkit": "1.4.0",
+    "husky": "4.3.0",
+    "redux": "4.0.5",
+    "tsdx": "0.13.3",
+    "tslib": "2.0.1",
+    "typescript": "3.9.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint src"
+    }
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "endOfLine": "lf",
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "sideEffects": false,
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!src/**/index.ts"
+    ]
+  }
+}

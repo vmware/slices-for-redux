@@ -1,23 +1,38 @@
+# Slices for Redux
 
-# slices-for-redux
+[![build status](https://img.shields.io/travis/vmware/slices-for-redux/beta.svg?style=flat-square)](https://travis-ci.com/vmware/slices-for-redux)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
-## Overview
+**Slices and SliceGroups that scale. Reduce boilerplate. Split code.**
 
-## Try it out
+## Install
 
-### Prerequisites
+`npm install --save @vmw/slices-for-redux`
 
-* Prereq 1
-* Prereq 2
-* Prereq 3
+### Purpose
 
-### Build & Run
+The **Slices for Redux** package intent is to make it easy to write predictable Redux code that scales.
+It was created to:
 
-1. Step 1
-2. Step 2
-3. Step 3
+- Reduce code wiring boilerplate
+- Promote better code splitting
+- Promote a predictable folder / files structure
+- Promote reusable encapsulated Redux modules
+- Reduce code merge conflicts
+
+**Slices for Redux** leverages concepts and tools from the <a href="https://redux-toolkit.js.org" target="_blank">Redux Toolkit</a> and adds some new concepts and tools of its own.
+
+## What's Included
+
+**Slices for Redux** includes:
+
+- `rootSliceGroup`: Object that holds a "mutable combine reducer" allowing "slice reducers" to be added as their code is imported, removes code boilerplate and promotes code splitting.
+- `createSlice()`: Function that creates a Slice with basic selectors and a mutable case reducer to promote writing sets of "case reducers" in separate files.
+- `createSliceGroup()`: Function that creates a SliceGroup to organize and ease the navigation of a large Redux State object.
 
 ## Documentation
+
+The **Slices for Redux** docs are available at **https://vmware.github.io/slices-for-redux**.
 
 ## Contributing
 
@@ -27,3 +42,5 @@ signed as described on that page. Your signature certifies that you wrote the pa
 as an open-source patch. For more detailed information, refer to [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
+
+Open source [licensed as MIT](https://github.com/vmware/slices-for-redux/blob/master/LICENSE).
