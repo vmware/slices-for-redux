@@ -1,4 +1,3 @@
-
 # Contributing to slices-for-redux
 
 The slices-for-redux project team welcomes contributions from the community. Before you start working with slices-for-redux, please
@@ -18,7 +17,7 @@ This is a rough outline of what a contributor's workflow looks like:
 
 Example:
 
-``` shell
+```shell
 git remote add upstream https://github.com/vmware/slices-for-redux.git
 git checkout -b my-new-feature master
 git commit -a
@@ -29,7 +28,7 @@ git push origin my-new-feature
 
 When your branch gets out of sync with the vmware/master branch, use the following to update:
 
-``` shell
+```shell
 git checkout my-new-feature
 git fetch -a
 git pull --rebase upstream master
@@ -44,7 +43,7 @@ existing commits.
 If your pull request contains a single commit or your changes are related to the most recent commit, you can simply
 amend the commit.
 
-``` shell
+```shell
 git add .
 git commit --amend
 git push --force-with-lease origin my-new-feature
@@ -52,7 +51,7 @@ git push --force-with-lease origin my-new-feature
 
 If you need to squash changes into an earlier commit, you can use:
 
-``` shell
+```shell
 git add .
 git commit --fixup <commit>
 git rebase -i --autosquash master
@@ -68,7 +67,7 @@ notification when you git push.
 
 We follow the conventions on [How to Write a Git Commit Message](http://chris.beams.io/posts/git-commit/).
 
-Be sure to include any related GitHub issue references in the commit message.  See
+Be sure to include any related GitHub issue references in the commit message. See
 [GFM syntax](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) for referencing issues
 and commits.
 
