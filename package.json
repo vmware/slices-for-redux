@@ -1,5 +1,5 @@
 {
-  "name": "@ll-fe/slices-for-redux",
+  "name": "@vmw/slices-for-redux",
   "version": "0.1.0",
   "description": "Slices and SliceGroups that scale. Reduce boilerplate. Split code.",
   "author": "VMware, Inc",
