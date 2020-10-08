@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="generator" content="Docusaurus">
+
+<script type="text/javascript">/*<![CDATA[*/window.__chunkMapping={"17896441":["/slices-for-redux/17896441.adb727cc.js"],"76366398":["/slices-for-redux/76366398.184a1a75.js"],"main":["/slices-for-redux/main.4bd4fa36.js"],"0502ccef":["/slices-for-redux/0502ccef.1a71e68a.js"],"055cdc0f":["/slices-for-redux/055cdc0f.1e822307.js"],"0eabd596":["/slices-for-redux/0eabd596.5067e3b6.js"],"1be78505":[],"316fce65":["/slices-for-redux/316fce65.6e013a0b.js"],"34c687fc":["/slices-for-redux/34c687fc.4987e026.js"],"3f3374c0":["/slices-for-redux/3f3374c0.74e2051c.js"],"572f3558":["/slices-for-redux/572f3558.f3244832.js"],"7d169303":["/slices-for-redux/7d169303.44a5956a.js"],"a382b2c0":["/slices-for-redux/a382b2c0.f044943d.js"],"b1a03eb7":["/slices-for-redux/b1a03eb7.30efe3b7.js"],"c13630ee":["/slices-for-redux/c13630ee.35fdc453.js"],"c31671b0":["/slices-for-redux/c31671b0.99ddd601.js"],"c4f5d8e4":["/slices-for-redux/c4f5d8e4.c1aa798a.js"],"c9d20a96":["/slices-for-redux/c9d20a96.837fbfc8.js"],"d6663db5":["/slices-for-redux/d6663db5.1ef267b9.js"]};/*]]>*/</script>
+
+<title data-react-helmet="true">Procedure File pattern</title>
+
+<meta data-react-helmet="true" http-equiv="x-ua-compatible" content="ie=edge"/><meta data-react-helmet="true" property="og:title" content="Slices for Redux · Slices and SliceGroups that scale. Reduce boilerplate. Split code."/><meta data-react-helmet="true" name="twitter:card" content="summary"/><meta data-react-helmet="true" name="description" content="# `Procedure File pattern (WIP)`"/><meta data-react-helmet="true" property="og:description" content="# `Procedure File pattern (WIP)`"/><meta data-react-helmet="true" property="og:url" content="https://vmware.github.io/slices-for-redux/docs/internal/procedureFilePattern"/>
+
+<link data-react-helmet="true" rel="shortcut icon" href="/slices-for-redux/img/favicon.ico"/>
+
+
+<link rel="stylesheet" type="text/css" href="/slices-for-redux/styles.5730193a.css" />
+
+</head>
+<body >
+
+<div id="__docusaurus">
+<nav class="navbar navbar--light navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><div aria-label="Navigation bar toggle" class="navbar__toggle" role="button" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></div><a aria-current="page" class="navbar__brand active" href="/slices-for-redux/"><img class="navbar__logo" src="/slices-for-redux/img/slices-for-redux.svg" alt="Slices for Redux Logo"/><strong class="">Slices for Redux</strong></a></div><div class="navbar__items navbar__items--right"><a class="navbar__item navbar__link" href="/slices-for-redux/docs/introduction/quick-start">Quick Start</a><a class="navbar__item navbar__link" href="/slices-for-redux/docs/api/createSlice">API</a><a class="navbar__item navbar__link" target="_blank" rel="noopener noreferrer" href="https://github.com/vmware/slices-for-redux">GitHub</a></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div><div class="navbar-sidebar"><div class="navbar-sidebar__brand"><a aria-current="page" class="navbar__brand active" href="/slices-for-redux/"><img class="navbar__logo" src="/slices-for-redux/img/slices-for-redux.svg" alt="Slices for Redux Logo"/><strong>Slices for Redux</strong></a></div><div class="navbar-sidebar__items"><div class="menu"><ul class="menu__list"><li class="menu__list-item"><a class="menu__link" href="/slices-for-redux/docs/introduction/quick-start">Quick Start</a></li><li class="menu__list-item"><a class="menu__link" href="/slices-for-redux/docs/api/createSlice">API</a></li><li class="menu__list-item"><a class="menu__link" target="_blank" rel="noopener noreferrer" href="https://github.com/vmware/slices-for-redux">GitHub</a></li></ul></div></div></div></nav><div class="main-wrapper"><div class="docPage_1kjD"><main class="docMainContainer_FFX1"><div class="padding-vert--lg"><div class="container"><div class="row"><div class="col"><div class="docItemContainer_2cwg"><article><div class="markdown"><h1><a aria-hidden="true" tabindex="-1" class="anchor" id="procedure-file-pattern-wip"></a><a aria-hidden="true" tabindex="-1" class="hash-link" href="#procedure-file-pattern-wip" title="Direct link to heading">#</a><code>Procedure File pattern (WIP)</code></h1><p><strong>Slices for Redux</strong> promotes a pattern that we call &quot;Procedure File&quot;:</p><p><strong>&quot;a file that contains all items that create and process a Redux Action and its side effects&quot;</strong>.</p><p>Rules - A procedure file:</p><ul><li><p>the file should be named after the primary action creator that it exports
+or if no action creator is exported, it should be named after the
+procedure that it performs.</p><p>the</p></li><li><p>may contain 0 or more action creators but may only export one.</p></li><li><p>may export 0 or more action action type constants</p></li></ul><p>and sometimes one or more Action Type constant(s) to allow other Procedure Files to have a Saga Watcher listening to those Action s and perform additional work.</p><ul><li>Exporting Action Type constant(s) makes these and their expected payload part of the public API. So be carful what you export and how a</li></ul><p>when refactoring exported Actions.</p><p>A Procedure File contains:</p><ul><li>Action type constant for one primary and some secondary actions if any.</li><li>Action creator functions for those (only the primary action creator function is exported !)</li><li>Action reducers</li><li>Saga watchers &amp; Saga workers</li><li>API delegate</li></ul><p>The Redux Procedure File idea of keeping all items that create and process a Redux Action and its side effects close together, is similar to the &quot;Folder By Feature&quot; pattern.<br/>
+<!-- -->These items are coupled, and by keeping them together inside a single file we have a high cohesion.</p><p>Using this pattern helps writing modular code that better scales.</p><p>A procedure file contain the case reducers, action creators and side effects for one feature like: loadX, selectY, removeZ, ...</p><ul><li><p>A procedure file name should be named by the primary action that it exports.
+<code>loadFoo.proc.js</code></p></li><li><p>A procedure should define and export only one primary action file adds its case reducers to the <code>Slice</code>.</p></li></ul><p>A procedure file adds its case reducers to the <code>Slice</code>.
+A procedure file exports only those public action creator functions that views can import and call.
+A procedure file exports only those public action type constant that other procedure files
+may listen to and act upon.
+A procedure file contains the code for the side effects (like Sagas) for the actions it defines.</p><p><strong>Slices for Redux</strong>&#x27;s Slice promotes writing your case reducers in separate files from the file that created the Slice.
+We call these procedure files.</p><p>The code is simple. Each procedure file adds its case reducers to the slice.
+The slice no longer needs contain nor import all the cases reducers.
+No boiler plate code and merge conflicts in the files that create the slices.</p><p>Promoting writing case reducers in separate files form the file to be written is But</p><p>The slice&#x27;s reducer is dynamic which allows to add case reducers as needed.
+This promotes modular code that better scales as you application becomes large.
+The slice file no longer needs to import all the files that containing case reducers.
+As a new feature is implemented new files containing cases reducers are written and using the slice addCaseReducers function</p><p><code>someSlice.addCaseReducers({ [actionKey]: caseReducer })</code></p></div></article><div class="margin-vert--lg"><nav class="pagination-nav"><div class="pagination-nav__item"></div><div class="pagination-nav__item pagination-nav__item--next"></div></nav></div></div></div><div class="col col--3"><div class="tableOfContents_TbNY"></div></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="row footer__links"><div class="col footer__col"><h4 class="footer__title">Docs</h4><ul class="footer__items"><li class="footer__item"><a class="footer__link-item" href="/slices-for-redux/docs/introduction/quick-start">Quick Start</a></li><li class="footer__item"><a class="footer__link-item" href="/slices-for-redux/docs/api/createSlice">API Reference</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">Community</h4><ul class="footer__items"><li class="footer__item"><a class="footer__link-item" target="_blank" rel="noopener noreferrer" href="http://stackoverflow.com/questions/tagged/slices-for-redux">Stack Overflow</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">Social</h4><ul class="footer__items"><li class="footer__item"><a class="footer__link-item" target="_blank" rel="noopener noreferrer" href="https://github.com/vmware/slices-for-redux">GitHub</a></li></ul></div></div><div class="text--center">Copyright © 2020 VMware, Inc. and other contributors.</div></div></footer>
+</div>
+
+<script type="text/javascript" src="/slices-for-redux/styles.020d63e7.js"></script>
+
+<script type="text/javascript" src="/slices-for-redux/runtime~main.21b90990.js"></script>
+
+<script type="text/javascript" src="/slices-for-redux/main.4bd4fa36.js"></script>
+
+<script type="text/javascript" src="/slices-for-redux/1.d6e6e0aa.js"></script>
+
+<script type="text/javascript" src="/slices-for-redux/21.0d740ec0.js"></script>
+
+<script type="text/javascript" src="/slices-for-redux/b1a03eb7.30efe3b7.js"></script>
+
+<script type="text/javascript" src="/slices-for-redux/17896441.adb727cc.js"></script>
+
+<script type="text/javascript" src="/slices-for-redux/76366398.184a1a75.js"></script>
+
+
+</body>
+</html>
