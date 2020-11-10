@@ -1,10 +1,10 @@
 /* Copyright 2020 VMware, Inc.
  * SPDX-License-Identifier: MIT */
 
-// Use the immer version used by @reduxjs/toolkit
-// eslint-disable-next-line import/no-extraneous-dependencies
-import createNewState, { Draft } from 'immer';
 import {
+  // Use the immer version used by @reduxjs/toolkit
+  createNextState,
+  Draft,
   createAction as rtkCreateAction,
   CaseReducer,
   CaseReducerActions,
@@ -174,7 +174,7 @@ export function createSlice<State>(
   ): State {
     const caseReducer = sliceCaseReducersByType[action.type];
     if (immer) {
-      return createNewState(sliceState, (draft: Draft<State>) => {
+      return createNextState(sliceState, (draft: Draft<State>) => {
         return caseReducer ? caseReducer(draft, action) : undefined;
       }) as State;
     }
