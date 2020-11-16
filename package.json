@@ -43,15 +43,13 @@
     "test-watch": "tsdx test --watch"
   },
   "peerDependencies": {
-    "@reduxjs/toolkit": "1.4.x",
-    "redux": "4.0.x"
+    "@reduxjs/toolkit": "1.4.x"
   },
   "devDependencies": {
     "@vmw/eslint-config-vmware-react": "0.1.0",
     "@types/jest": "26.0.13",
     "@reduxjs/toolkit": "1.4.0",
     "husky": "4.3.0",
-    "redux": "4.0.5",
     "tsdx": "0.13.3",
     "tslib": "2.0.1",
     "typescript": "3.9.6"

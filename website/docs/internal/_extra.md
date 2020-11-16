@@ -102,7 +102,7 @@ We recommend using this API if stricter type safety is necessary when defining r
 Each function defined in the `reducers` argument will have a corresponding action creator generated using [`createAction`](/slices-for-redux/docs/api/createAction)
 and included in the result's `actions` field using the same function name.
 
-The generated `reducer` function is suitable for passing to the Redux `combineReducers` function as a "slice reducer".
+The generated `reducer` function is suitable for passing to the Redux `combineReducers` function (re-exported by RTK) as a "slice reducer".
 
 You may want to consider destructuring the action creators and exporting them individually, for ease of searching
 for references in a larger codebase.
@@ -110,8 +110,13 @@ for references in a larger codebase.
 ## Examples
 
 ```ts
-import { createSlice, createAction, PayloadAction } from '@reduxjs/toolkit';
-import { createStore, combineReducers } from 'redux';
+import {
+  configureStore,
+  combineReducers,
+  createSlice,
+  createAction,
+  PayloadAction,
+} from '@reduxjs/toolkit';
 
 const incrementBy = createAction<number>('incrementBy');
 
@@ -137,13 +142,13 @@ const user = createSlice({
   name: 'user',
   initialState: { name: '', age: 20 },
   reducers: {
-    setUserName: (state, action) => {
+    setUserName: (state, action: PayloadAction<string>) => {
       state.name = action.payload; // mutate the state all you want with immer
     },
   },
   // "map object API"
   extraReducers: {
-    [counter.actions.increment]: (state, action) => {
+    [counter.actions.increment]: (state, action: PayloadAction<number>) => {
       state.age += 1;
     },
   },
@@ -154,7 +159,7 @@ const reducer = combineReducers({
   user: user.reducer,
 });
 
-const store = createStore(reducer);
+const store = configureStore({ reducer });
 
 store.dispatch(counter.actions.increment());
 // -> { counter: 1, user: {name : '', age: 21} }

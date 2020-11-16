@@ -68,7 +68,7 @@ Optional - The Slice's reducer uses, or not uses <a href="https://github.com/imm
 
 Default value is: true  
 When migrating to **Slices for Redux** you may find that some existing code mutates the state.  
-To **temporary ignore** impure code until it can be fixed set `immer` to false.  
+To **temporarily ignore** impure code until it can be fixed set `immer` to false.  
 When `immer` is false, a warning will appear in the console.
 
 ### `name`
@@ -84,7 +84,7 @@ Default value is: [`rootSliceGroup`](/slices-for-redux/docs/api/rootSliceGroup)
 When `parent` is [`rootSliceGroup`](/slices-for-redux/docs/api/rootSliceGroup) this [`Slice`](/slices-for-redux/docs/api/Slice)'s `reducer` will be added to the [`rootReducer`](/slices-for-redux/docs/api/rootReducer).  
 When `parent` is a [`SliceParent`](/slices-for-redux/docs/api/SliceParent), this [`Slice`](/slices-for-redux/docs/api/Slice)'s `reducer` will be added to that parent's reducer.  
 When `parent` is a string, it represents the parent's path, and this
-[`Slice`](/slices-for-redux/docs/api/Slice)'s reducer will needs to be manually added to that parent's reducer.
+[`Slice`](/slices-for-redux/docs/api/Slice)'s reducer will need to be manually added to that parent's reducer.
 
 ## Return Value
 

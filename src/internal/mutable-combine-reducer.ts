@@ -1,8 +1,7 @@
 /* Copyright 2020 VMware, Inc.
  * SPDX-License-Identifier: MIT */
 
-import { Reducer } from 'redux';
-import { AnyAction } from '@reduxjs/toolkit';
+import { Reducer, AnyAction } from '@reduxjs/toolkit';
 
 type Reducers = { [reducerName: string]: Reducer };
 

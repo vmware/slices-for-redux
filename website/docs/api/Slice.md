@@ -37,8 +37,8 @@ The action creators are generated using the <a href="https://redux-toolkit.js.or
 
 ### `addExtraReducers(extraReducers)`
 
-Like caseReducers, extraReducers should be an object containing Redux case reducer functions. However, the keys should be string action type constants.
-addExtraReducers will not auto-generate action types nor action creators for extraReducers and it has no return value.
+Like `caseReducers`, `extraReducers` should be an object containing Redux case reducer functions. However, the keys should be string action type constants.
+`addExtraReducers` will not auto-generate action types nor action creators for extraReducers and it has no return value.
 
 ### `createAction(actionKey)`
 
