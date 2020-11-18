@@ -6,9 +6,9 @@ import { createSliceGroup } from './create-slice-group';
 
 describe('slice.selector', () => {
   const initialState = { value: 10 };
-  const name = '$test';
 
   it('selector returns initialState', () => {
+    const name = '$testS1';
     const slice = createSlice({ initialState, name });
     const sliceState = slice.selector(undefined);
     expect(sliceState).toBe(initialState);
@@ -16,6 +16,7 @@ describe('slice.selector', () => {
 
   it('selector walks ancestors', () => {
     const appScope = createSliceGroup({ name: 'app' });
+    const name = '$testS2';
     const slice = createSlice({ initialState, name, parent: appScope });
     const value = slice.selector({
       app: {
@@ -28,19 +29,20 @@ describe('slice.selector', () => {
 
 describe('slice.selectors', () => {
   const initialState = { value: 10 };
-  const name = '$test';
 
   it('selectors not created when initialState not an object', () => {
+    const name = '$testS3';
     const slice = createSlice({ initialState: 4, name });
     expect(slice.selectors).toEqual({});
   });
 
   it('selectors are created', () => {
+    const name = '$testS4';
     const slice = createSlice({ initialState, name });
     const valueSelector = slice.selectors.value;
     expect(valueSelector).toBeDefined();
     const storeState = {
-      $test: {
+      [name]: {
         value: 33,
       },
     };

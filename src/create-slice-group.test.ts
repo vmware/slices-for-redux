@@ -5,8 +5,6 @@ import { createSliceGroup } from './create-slice-group';
 import { rootSliceGroup } from './root-slice-group';
 
 describe('createSliceGroup', () => {
-  const name = 'testScope';
-
   it('name is required', () => {
     // @ts-ignore
     expect(() => createSliceGroup()).toThrow(
@@ -15,6 +13,7 @@ describe('createSliceGroup', () => {
   });
 
   it('path is parentPath + name', () => {
+    const name = 'testG1';
     let slice = createSliceGroup({ name });
     expect(slice.path).toBe(`/${name}/`);
 
@@ -32,12 +31,14 @@ describe('createSliceGroup', () => {
 
   it('will not self-adds when parent is a string', () => {
     jest.spyOn(rootSliceGroup, 'addReducers');
+    const name = 'testG2';
     createSliceGroup({ name, parent: '/' });
     expect(rootSliceGroup.addReducers).not.toHaveBeenCalled();
   });
 
   it('self-adds to the rootSliceGroup', () => {
     jest.spyOn(rootSliceGroup, 'addReducers');
+    const name = 'testG3';
     const sliceGroup = createSliceGroup({ name });
     expect(rootSliceGroup.addReducers).toHaveBeenCalledWith({
       [name]: sliceGroup.reducer,

@@ -1,6 +1,6 @@
 {
   "name": "@vmw/slices-for-redux",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Slices and SliceGroups that scale. Reduce boilerplate. Split code.",
   "author": "VMware, Inc",
   "license": "MIT",
@@ -46,12 +46,12 @@
     "@reduxjs/toolkit": "1.4.x"
   },
   "devDependencies": {
-    "@vmw/eslint-config-vmware-react": "0.1.0",
-    "@types/jest": "26.0.13",
+    "@vmw/eslint-config-vmware-react": "0.2.0",
+    "@types/jest": "26.0.15",
     "@reduxjs/toolkit": "1.4.0",
     "husky": "4.3.0",
-    "tsdx": "0.13.3",
-    "tslib": "2.0.1",
+    "tsdx": "0.14.1",
+    "tslib": "2.0.3",
     "typescript": "3.9.6"
   },
   "husky": {

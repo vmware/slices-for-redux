@@ -39,6 +39,16 @@ export function createMutableCombineReducer(
    * @param reducers An object with keys slice name and values reducer function.
    */
   function addReducers(reducers: Reducers): void {
+    if (process.env.NODE_ENV !== 'production') {
+      Object.keys(reducers).forEach((reducerName: string) => {
+        if (childReducers[reducerName]) {
+          console.error(
+            `[slices-for-redux] a slice already exists with the name: '${reducerName}'.`
+          );
+        }
+      });
+    }
+
     childReducers = sortReducers({
       ...childReducers,
       ...reducers,
