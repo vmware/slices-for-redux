@@ -40,15 +40,14 @@ npm install --save @vmw/slices-for-redux
 yarn add @vmw/slices-for-redux
 ```
 
-Note: [Redux Toolkit `@reduxjs/toolkit`](https://redux-toolkit.js.org/) a require peer dependency
+Note: [Redux Toolkit `@reduxjs/toolkit`](https://redux-toolkit.js.org/) is a required peer dependency
 
 ## Use the rootSliceGroup's reducer
 
 Replace code like this:
 
 ```ts
-import { combineReducers } from 'redux';
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 const rootReducer = combineReducers({
   [homeSlice.name]: homeSlice.reducer,
@@ -66,12 +65,12 @@ With code like this:
 import { rootSliceGroup } from 'slices-for-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-rootSliceGroup.addReducers({
+const { reducer } = rootSliceGroup.addReducers({
   [homeSlice.name]: homeSlice.reducer,
   [todoSlice.name]: todoSlice.reducer,
 });
 
 const store = configureStore({
-  reducer: rootSliceGroup.reducer,
+  reducer,
 });
 ```

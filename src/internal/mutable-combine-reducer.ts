@@ -1,8 +1,7 @@
 /* Copyright 2020 VMware, Inc.
  * SPDX-License-Identifier: MIT */
 
-import { Reducer } from 'redux';
-import { AnyAction } from '@reduxjs/toolkit';
+import { Reducer, AnyAction } from '@reduxjs/toolkit';
 
 type Reducers = { [reducerName: string]: Reducer };
 
@@ -40,6 +39,16 @@ export function createMutableCombineReducer(
    * @param reducers An object with keys slice name and values reducer function.
    */
   function addReducers(reducers: Reducers): void {
+    if (process.env.NODE_ENV !== 'production') {
+      Object.keys(reducers).forEach((reducerName: string) => {
+        if (childReducers[reducerName]) {
+          console.error(
+            `[slices-for-redux] a slice already exists with the name: '${reducerName}'.`
+          );
+        }
+      });
+    }
+
     childReducers = sortReducers({
       ...childReducers,
       ...reducers,

@@ -7,10 +7,10 @@ import { rootSliceGroup } from './root-slice-group';
 
 describe('createSlice', () => {
   const initialState = { value: 10 };
-  const name = '$test';
   const type = 'testType';
 
   it('initialState is required', () => {
+    const name = '$test1';
     // @ts-ignore
     expect(() => createSlice({ name })).toThrow(
       'initialState is required in createSliceOptions.'
@@ -30,12 +30,14 @@ describe('createSlice', () => {
   });
 
   it('reducer returns initialState', () => {
+    const name = '$test2';
     const slice = createSlice({ initialState, name });
     const state = slice.reducer(undefined, { payload: undefined, type });
     expect(state).toBe(initialState);
   });
 
   it('addCaseReducers with no payload', () => {
+    const name = '$test3';
     const slice = createSlice({ initialState, name });
     const actions = slice.addCaseReducers({
       double(state: any) {
@@ -56,6 +58,7 @@ describe('createSlice', () => {
   });
 
   it('addCaseReducers with payload', () => {
+    const name = '$test4';
     const slice = createSlice({ initialState, name });
     const actions = slice.addCaseReducers({
       // add(state: any, action: { payload: number }) {
@@ -68,6 +71,7 @@ describe('createSlice', () => {
   });
 
   it('addCaseReducers with payload no immer', () => {
+    const name = '$test5';
     const slice = createSlice({ immer: false, initialState, name });
     const actions = slice.addCaseReducers({
       // add(state: any, action: { payload: number }) {
@@ -89,6 +93,7 @@ describe('createSlice', () => {
   });
 
   it('addExtraReducers', () => {
+    const name = '$test6';
     const slice = createSlice({ initialState, name });
     const type = 'addType';
     const addAction = createAction<number>(type);
@@ -106,12 +111,14 @@ describe('createSlice', () => {
 
   it('will not self-adds when parent is a string', () => {
     jest.spyOn(rootSliceGroup, 'addReducers');
+    const name = '$test7';
     createSlice({ initialState, name, parent: '/' });
     expect(rootSliceGroup.addReducers).not.toHaveBeenCalled();
   });
 
   it('self-adds to the rootSliceGroup', () => {
     jest.spyOn(rootSliceGroup, 'addReducers');
+    const name = '$test8';
     const slice = createSlice({ initialState, name });
     expect(rootSliceGroup.addReducers).toHaveBeenCalledWith({
       [slice.name]: slice.reducer,
@@ -119,6 +126,7 @@ describe('createSlice', () => {
   });
 
   it('addCaseReducers action type format is correct', () => {
+    const name = '$test9';
     const slice = createSlice({ initialState, name });
     const actions = slice.addCaseReducers({
       double(state: any) {
@@ -132,6 +140,7 @@ describe('createSlice', () => {
   });
 
   it('addCaseReducers action type uses RTK format', () => {
+    const name = '$test10';
     const slice = createSlice({
       actionTypeFormat: 'RTK',
       immer: false,
@@ -152,6 +161,7 @@ describe('createSlice', () => {
   let nextCount = 0;
 
   it('addCaseReducers with prepare', () => {
+    const name = '$test11';
     const slice = createSlice({
       initialState,
       name,

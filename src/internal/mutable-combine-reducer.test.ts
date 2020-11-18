@@ -9,7 +9,7 @@ import {
 let mutableReducer: MutableCombineReducer;
 
 describe('createMutableCombineReducer', () => {
-  const reducerName = '$test'; // the slice name
+  const reducerName = '$testM1'; // the slice name
   const preloadedState = {
     otherSlice: 'someState',
     [reducerName]: 10,

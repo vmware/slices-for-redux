@@ -1,10 +1,10 @@
 /* Copyright 2020 VMware, Inc.
  * SPDX-License-Identifier: MIT */
 
-// Use the immer version used by @reduxjs/toolkit
-// eslint-disable-next-line import/no-extraneous-dependencies
-import createNewState, { Draft } from 'immer';
 import {
+  // Use the immer version used by @reduxjs/toolkit
+  createNextState,
+  Draft,
   createAction as rtkCreateAction,
   CaseReducer,
   CaseReducerActions,
@@ -62,12 +62,15 @@ export function createSlice<State>(
   const names = namesFromPath(parentPath);
   names.push(name);
 
-  if (!immer && !noImmerWarned) {
-    noImmerWarned = true;
-    if ('production' !== process.env.NODE_ENV) {
-      console.warn(
-        "[slices-for-redux] 'immer' is false for one or more Slice(s)"
-      );
+  // Include code only in development build
+  if (process.env.NODE_ENV === 'development') {
+    if (!isClientTestEnv()) {
+      if (!immer && !noImmerWarned) {
+        noImmerWarned = true;
+        console.warn(
+          "[slices-for-redux] 'immer' is false for one or more Slice(s)."
+        );
+      }
     }
   }
 
@@ -141,6 +144,13 @@ export function createSlice<State>(
         prepareCallback = maybeReducerWithPrepare.prepare;
       }
 
+      if (process.env.NODE_ENV !== 'production') {
+        if (sliceCaseReducersByType[type]) {
+          console.warn(
+            `[slices-for-redux] a case reducer already exists for action type" '${type}'.`
+          );
+        }
+      }
       sliceCaseReducersByType[type] = caseReducer;
       // @ts-ignore
       actionCreators[reducerName] = prepareCallback
@@ -151,9 +161,23 @@ export function createSlice<State>(
   }
 
   function addExtraReducers(extraReducers: any): void {
+    if (process.env.NODE_ENV !== 'production') {
+      Object.keys(extraReducers).forEach((actionType: string) => {
+        if (sliceCaseReducersByType[actionType]) {
+          console.warn(
+            `[slices-for-redux] a case reducer already exists for action type: '${actionType}'.\nThe extra reducer will not be used.`
+          );
+        }
+      });
+    }
+    /**
+     * Same behavior as RTK: If two fields from case reducers and extraReducers
+     * happen to end up with the same action type string, the function from
+     * case reducers will be used to handle that action type.
+     */
     sliceCaseReducersByType = {
-      ...sliceCaseReducersByType,
       ...extraReducers,
+      ...sliceCaseReducersByType,
     };
   }
 
@@ -174,7 +198,7 @@ export function createSlice<State>(
   ): State {
     const caseReducer = sliceCaseReducersByType[action.type];
     if (immer) {
-      return createNewState(sliceState, (draft: Draft<State>) => {
+      return createNextState(sliceState, (draft: Draft<State>) => {
         return caseReducer ? caseReducer(draft, action) : undefined;
       }) as State;
     }
@@ -250,4 +274,12 @@ function defaultActionTypeFormat(actionKey: string, names: string[]): string {
 
 function rtkActionTypeFormat(actionKey: string, names: string[]): string {
   return `${names.join('/')}/${actionKey}`;
+}
+
+function isClientTestEnv() {
+  if (process) {
+    const { env } = process;
+    return env.NODE_ENV === 'test';
+  }
+  return false;
 }
