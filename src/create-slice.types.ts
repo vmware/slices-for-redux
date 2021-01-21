@@ -1,4 +1,4 @@
-/* Copyright 2020 VMware, Inc.
+/* Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: MIT */
 
 import { SliceParent } from './root-slice-group';
