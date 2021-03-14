@@ -54,7 +54,7 @@ describe('createMutableCombineReducer', () => {
     };
     mutableReducer.__internal.addReducers({
       noopReducer: (state) => state,
-      // @ts-ignore
+      // @ts-expect-error: Test with a null value
       nullReducer: null,
       [reducerName]: reducerFunc,
     });

@@ -1,19 +1,39 @@
 /* Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: MIT */
 
+import { Reducer } from '@reduxjs/toolkit';
 import { PATH_SEPARATOR } from './constants';
-import {
-  rootSliceGroup,
-  AddReducers,
-  SliceGroup,
-  SliceParent,
-} from './root-slice-group';
 import { createMutableCombineReducer } from './internal/mutable-combine-reducer';
 import { normalizePath } from './path.utils';
 
+/**
+ * An object with keys reducer name (slice of state name) and values reducer function.
+ */
+export type Reducers = { [reducerName: string]: Reducer };
+
+/**
+ * A function that takes Reducers
+ */
+export type AddReducers = (reducers: Reducers) => void;
+
+/**
+ * The interface implement by the parent of a Slice or SliceGroup.
+ */
+export interface SliceParent {
+  addReducers: AddReducers;
+  path: string;
+}
+
+/**
+ * SliceGroup is a SliceParent that exposes its reducer.
+ */
+export type SliceGroup = SliceParent & {
+  reducer: Reducer;
+};
+
 type CreateSliceGroupOptions = {
   /**
-   * The SliceGroup's name.
+   * The SliceGroup's name or '/' to create a root SliceGroup.
    */
   name: string;
 
@@ -53,32 +73,33 @@ export function createSliceGroup(
     }
   }
 
-  const { name, parent = rootSliceGroup } = createSliceGroupOptions;
+  const { name } = createSliceGroupOptions;
+  const isRoot = name === PATH_SEPARATOR;
 
-  if (name.indexOf(PATH_SEPARATOR) !== -1) {
+  if (!isRoot && name.indexOf(PATH_SEPARATOR) !== -1) {
     throw new Error(
       `SliceGroup '${name}' name cannot contain path separator '${PATH_SEPARATOR}'.`
     );
   }
 
-  let parentAddReducers: null | AddReducers = null;
-  let parentPath = PATH_SEPARATOR;
-
-  if (typeof parent === 'string') {
-    parentAddReducers = null;
-    parentPath = normalizePath(parent);
-  } else {
-    parentAddReducers = parent.addReducers;
-    parentPath = parent.path;
-  }
-
-  const path = `${parentPath}${name}${PATH_SEPARATOR}`;
-
   const reducer = createMutableCombineReducer();
 
-  // self-add this SliceGroup's reducer to the parent reducer
-  if (parentAddReducers) {
-    parentAddReducers({ [name]: reducer });
+  let path;
+  if (isRoot) {
+    path = PATH_SEPARATOR;
+  } else {
+    const { parent = rootSliceGroup } = createSliceGroupOptions;
+
+    let parentPath;
+    if (typeof parent === 'string') {
+      parentPath = normalizePath(parent);
+    } else {
+      parentPath = parent.path;
+      // self-add this SliceGroup's reducer to the parent reducer
+      parent.addReducers({ [name]: reducer });
+    }
+
+    path = `${parentPath}${name}${PATH_SEPARATOR}`;
   }
 
   return {
@@ -87,3 +108,18 @@ export function createSliceGroup(
     reducer,
   };
 }
+
+/**
+ * The rootSliceGroup is the default root SliceGroup.
+ * By default the rootSliceGroup will be the parent of all Slices and SliceGroups unless
+ * a different parent is given when creating a Slice or SliceGroup.
+ * The rootSliceGroup holds the rootReducer which must be passed to Redux createStore.
+ * The rootReducer is accessible via the reducer property of the rootSliceGroup.
+ * Use addReducers function of the rootSliceGroup to add third parties libraries reducers to the rootReducer.
+ *
+ * In the rare case (not recommended) where multiple Redux stores are used, create a
+ * root SliceGroups for each store with `createSliceGroup({ name: '/' })`.
+ */
+export const rootSliceGroup: SliceGroup = createSliceGroup({
+  name: PATH_SEPARATOR,
+});

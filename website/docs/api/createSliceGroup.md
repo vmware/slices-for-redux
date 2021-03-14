@@ -33,7 +33,7 @@ function createSliceGroup({
 
 ### `name`
 
-The [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup)'s name.  
+The [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup)'s name (or '/' to create a root SliceGroups).  
 The name cannot contain the path separator '/'.  
 The name is used to build the [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup)'s path property.
 
@@ -49,3 +49,8 @@ When `parent` is a string, it represents the parent's path, and this
 ## Return Value
 
 `createSliceGroup` returns a [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup) object.
+
+## Note
+
+In the rare case (not recommended) where multiple Redux stores are used, create a
+root SliceGroups for each store with `createSliceGroup({ name: '/' })`.

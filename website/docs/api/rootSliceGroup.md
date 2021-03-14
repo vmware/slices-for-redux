@@ -7,10 +7,12 @@ hide_title: true
 
 # `rootSliceGroup`
 
-The `rootSliceGroup` is the object that manages and exposes the root `reducer`.  
-New reducers are added to the "root reducer" via the `addReducers` function property of the `rootSliceGroup`.  
-The `rootSliceGroup` is the default `parent` used in [`createSlice()`](/slices-for-redux/docs/api/createSlice).  
-Therefore a [`Slice`](/slices-for-redux/docs/api/Slice)'s reducer is added to the root `reducer` by default.
+The `rootSliceGroup` is the default root `SliceGroup`.
+The `rootSliceGroup` is the default `parent` unless a different `parent` is given when creating a [`Slice`](/slices-for-redux/docs/api/Slice) or [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup).
+
+The `rootSliceGroup` holds and manages the "root-reducer".
+
+Other reducers are added to the "root-reducer" via the `addReducers` function property of the `rootSliceGroup`. But in most cases this will be done automatically when creating new `Slices` and `SliceGroups` with `createSlice` and `createSliceGroup`.
 
 The `rootSliceGroup` is an object that looks like:
 
@@ -35,7 +37,7 @@ The `rootSliceGroup`'s path value is: '/'
 
 ### `reducer`
 
-This is the "root reducer".  
+This is the "root-reducer".  
 This `reducer` must be passed to <a href="https://redux.js.org/api/createstore" target="_blank">createStore</a>
 from Redux or to <a href="https://redux-toolkit.js.org/api/configurestore" target="_blank">configureStore</a>
 from Redux Toolkit. We recommend using <a href="https://redux-toolkit.js.org/api/configurestore" target="_blank">configureStore</a>

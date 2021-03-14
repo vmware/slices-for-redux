@@ -39,8 +39,8 @@ describe('slice.selectors', () => {
   it('selectors are created', () => {
     const name = '$testS4';
     const slice = createSlice({ initialState, name });
-    const valueSelector = slice.selectors.value;
-    expect(valueSelector).toBeDefined();
+    const { valueSelector } = slice.selectors;
+    expect(slice.selectors.valueSelector).toBeDefined();
     const storeState = {
       [name]: {
         value: 33,

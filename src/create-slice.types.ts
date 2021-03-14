@@ -1,7 +1,17 @@
 /* Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: MIT */
 
-import { SliceParent } from './root-slice-group';
+import {
+  CaseReducer,
+  CaseReducerActions,
+  CaseReducerWithPrepare,
+  PayloadAction,
+  PayloadActionCreator,
+  PrepareAction,
+  SliceCaseReducers,
+} from '@reduxjs/toolkit';
+
+import { SliceParent } from './create-slice-group';
 
 /**
  * Function that formats action types based on the actionKey and Slice names.
@@ -14,9 +24,11 @@ type ActionTypeFormatFunc = (actionKey: string, names: string[]) => string;
 export type Selector<Value = any> = (state: any) => Value;
 
 /**
- * Object with keys field names string and values Selector functions
+ * Object with keys `${propertyName}Selector` and values Selector functions
  */
-export type Selectors<O = any> = { [P in keyof O]: Selector<O[P]> };
+export type Selectors<O = any> = {
+  [P in keyof O & string as `${P}Selector`]: Selector<O[P]>;
+};
 
 /**
  * Options for `createSlice()`.
@@ -67,4 +79,40 @@ export type CreateSliceOptions<State = any> = {
    * the Slice's reducer needs to be manually added to the parent reducer.
    */
   parent?: SliceParent | string;
+};
+
+export type CaseReducerDefinition<State, Action extends PayloadAction> =
+  | CaseReducer<State, Action>
+  | CaseReducerWithPrepare<State, Action>;
+
+type MapAppendAction<O = any> = {
+  [P in keyof O & string as `${P}Action`]: O[P];
+};
+
+export type SfrCaseReducerActions<
+  CaseReducers extends SliceCaseReducers<any>
+> = MapAppendAction<CaseReducerActions<CaseReducers>>;
+
+export type SfrSlice<State> = {
+  addCaseReducers<
+    CRS extends { [k: string]: CaseReducerDefinition<State, any> }
+  >(
+    // Object with keys actionKey string and
+    // values CaseReducer function or object with reducer and prepare function
+    caseReducers: CRS
+  ): SfrCaseReducerActions<CRS>;
+  addExtraReducers: (extraReducers: any) => void;
+  createAction<P = void, T extends string = string>(
+    actionKey: T
+  ): PayloadActionCreator<P, T>;
+  createAction<PA extends PrepareAction<any>>(
+    actionKey: string,
+    prepareAction?: PA
+  ): PayloadActionCreator<ReturnType<PA>['payload'], string, PA>;
+  getActionType: (actionKey: string) => string;
+  name: string;
+  parentPath: string;
+  reducer: (sliceState: State | undefined, action: PayloadAction<any>) => State;
+  selector: (storeState: any) => State;
+  selectors: Selectors<State>;
 };
