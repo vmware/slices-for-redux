@@ -7,27 +7,28 @@ import {
   Draft,
   createAction as rtkCreateAction,
   CaseReducer,
-  CaseReducerActions,
-  CaseReducerWithPrepare,
   PayloadAction,
   PayloadActionCreator,
   PrepareAction,
   Reducer,
 } from '@reduxjs/toolkit';
-import { rootSliceGroup, AddReducers } from './root-slice-group';
+import { rootSliceGroup, AddReducers } from './create-slice-group';
 import { normalizePath, namesFromPath } from './path.utils';
 import { PATH_SEPARATOR } from './constants';
-import { CreateSliceOptions, Selector, Selectors } from './create-slice.types';
+import {
+  CaseReducerDefinition,
+  CreateSliceOptions,
+  Selector,
+  Selectors,
+  SfrCaseReducerActions,
+  SfrSlice,
+} from './create-slice.types';
 
 let noImmerWarned = false;
 
-type CaseReducerDefinition<State, Action extends PayloadAction> =
-  | CaseReducer<State, Action>
-  | CaseReducerWithPrepare<State, Action>;
-
 export function createSlice<State>(
   createSliceOptions: CreateSliceOptions<State>
-) {
+): SfrSlice<State> {
   const {
     actionTypeFormat: actionTypeFormatParam = defaultActionTypeFormat,
     initialState,
@@ -94,18 +95,6 @@ export function createSlice<State>(
    *                If this is given, the resulting action creator will pass it's arguments to this method to calculate payload & meta.
    */
 
-  function createAction<P = void, T extends string = string>(
-    actionKey: T
-  ): PayloadActionCreator<P, T>;
-
-  function createAction<
-    PA extends PrepareAction<any>,
-    T extends string = string
-  >(
-    actionKey: T,
-    prepareAction: PA
-  ): PayloadActionCreator<ReturnType<PA>['payload'], T, PA>;
-
   function createAction(actionKey: string, prepareAction?: PrepareAction<any>) {
     const type = getActionType(actionKey);
     if (prepareAction) {
@@ -117,30 +106,28 @@ export function createSlice<State>(
   let sliceCaseReducersByType: Record<string, CaseReducer<State, any>> = {};
 
   /**
-   * Given an object with keys reducerName string and values CaseReducer function
-   * returns an object with same keys anv values PayloadActionCreator
+   * Given an object with keys actionKey string and values CaseReducer function
+   * returns an object with keys `${actionKey}Action` and values PayloadActionCreator
    */
   function addCaseReducers<
     CRS extends { [k: string]: CaseReducerDefinition<State, any> }
   >(
-    // Object with keys reducerName string and
+    // Object with keys actionKey string and
     // values CaseReducer function or object with reducer and prepare function
     caseReducers: CRS
-  ): CaseReducerActions<CRS> {
+  ): SfrCaseReducerActions<CRS> {
     const actionCreators: Record<string, PayloadActionCreator> = {};
 
-    Object.keys(caseReducers).forEach((reducerName: string) => {
-      const type = getActionType(reducerName);
-      const maybeReducerWithPrepare = caseReducers[reducerName];
+    Object.keys(caseReducers).forEach((actionKey: string) => {
+      const type = getActionType(actionKey);
+      const maybeReducerWithPrepare = caseReducers[actionKey];
       let caseReducer: CaseReducer<State, any>;
       let prepareCallback: PrepareAction<any> | undefined;
 
       if (typeof maybeReducerWithPrepare === 'function') {
         caseReducer = maybeReducerWithPrepare;
       } else {
-        // @ts-ignore
         caseReducer = maybeReducerWithPrepare.reducer;
-        // @ts-ignore
         prepareCallback = maybeReducerWithPrepare.prepare;
       }
 
@@ -152,12 +139,11 @@ export function createSlice<State>(
         }
       }
       sliceCaseReducersByType[type] = caseReducer;
-      // @ts-ignore
-      actionCreators[reducerName] = prepareCallback
+      actionCreators[`${actionKey}Action`] = prepareCallback
         ? rtkCreateAction(type, prepareCallback)
         : rtkCreateAction(type);
     });
-    return actionCreators as CaseReducerActions<CRS>;
+    return actionCreators as SfrCaseReducerActions<CRS>;
   }
 
   function addExtraReducers(extraReducers: any): void {
@@ -184,7 +170,7 @@ export function createSlice<State>(
   /**
    * The Slice's reducer function.
    *
-   * If an caseReducer for the given ACTION_TYPE was added to the Slice it will be used,
+   * If a caseReducer for the given ACTION_TYPE was added to the Slice it will be used,
    * otherwise the current slice's State object will be returned.
    *
    * @param {Object} [sliceState] the current slice's State object
@@ -210,8 +196,7 @@ export function createSlice<State>(
 
   // self-add this Slice's reducer to the parent reducer
   if (parentAddReducers) {
-    // @ts-ignore
-    parentAddReducers({ [name]: reducer });
+    parentAddReducers({ [name]: reducer as Reducer });
   }
 
   /**
@@ -231,23 +216,18 @@ export function createSlice<State>(
 
   // Do not use JSDoc here because it brakes TS tooltip?!
   // /**
-  //  * An object with keys field names in the initialState object,
-  //  * and values Selector functions that select the field value.
+  //  * An object with keys `${propertyName}Selector` for each property name in the `initialState` object,
+  //  * and values Selector functions that return the property's value.
   //  */
   function createSelectors(initialState: State): Selectors<State> {
     const fieldSelectors: Record<string, Selector> = {};
     if (initialState && typeof initialState === 'object') {
-      Object.keys(initialState).forEach((fieldName: string) => {
+      Object.keys(initialState).forEach((propertyName: string) => {
         const fieldSelector = (rootState: any) => {
-          const state: State = selector(rootState);
-          // @ts-ignore
-          return state[fieldName];
+          const state = selector(rootState) as Record<string, unknown>;
+          return state[propertyName];
         };
-        // We liked to have selector names suffixed with 'Selector'
-        // but it cannot be defined yet in TypeScript !
-        // https://github.com/microsoft/TypeScript/issues/12754
-        // fieldSelectors[`${fieldName}Selector`] = fieldSelector;
-        fieldSelectors[fieldName] = fieldSelector;
+        fieldSelectors[`${propertyName}Selector`] = fieldSelector;
       });
     }
     return fieldSelectors as Selectors<State>;

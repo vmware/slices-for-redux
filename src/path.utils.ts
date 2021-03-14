@@ -7,7 +7,7 @@ export function normalizePath(value?: string): string {
   if (!value) {
     return PATH_SEPARATOR;
   }
-  let result: string = String(value);
+  let result = String(value);
   if (!result.startsWith(PATH_SEPARATOR)) {
     result = `${PATH_SEPARATOR}${result}`;
   }

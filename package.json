@@ -1,6 +1,6 @@
 {
   "name": "@vmw/slices-for-redux",
-  "version": "0.2.1",
+  "version": "0.5.0-beta.1",
   "description": "Slices and SliceGroups that scale. Reduce boilerplate. Split code.",
   "author": "VMware, Inc",
   "license": "MIT",
@@ -25,40 +25,50 @@
     "slice",
     "code splitting"
   ],
-  "main": "dist/index.js",
-  "module": "dist/slices-for-redux.esm.js",
-  "types": "dist/index.d.ts",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/types/index.d.ts",
   "files": [
-    "dist"
+    "lib"
   ],
   "scripts": {
-    "build": "tsdx build",
+    "clean": "rimraf lib",
+    "clean-modules": "rimraf node_modules",
+    "build": "npm run clean && npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc -p tsconfig-cjs.json",
+    "build:esm": "tsc -p tsconfig-esm.json",
     "format": "prettier --write \"src/*.ts\" \"**/*.md\"",
     "format:check": "prettier --list-different \"src/*.ts\" \"**/*.md\"",
-    "lint": "tsdx lint src",
+    "lint": "eslint --ext .js,.ts src --resolve-plugins-relative-to \"node_modules/@vmw/eslint-config-vmware-react\"",
     "prepare": "npm run lint && npm run format:check && npm run test-coverage && npm run build",
-    "start": "tsdx watch",
-    "test": "tsdx test",
-    "test-coverage": "tsdx test --coverage",
-    "test-watch": "tsdx test --watch"
+    "publish:latest": "npm publish",
+    "publish:next": "npm publish --tag next",
+    "start": "tsc --watch",
+    "test": "jest",
+    "test-coverage": "jest --coverage",
+    "test-watch": "jest --watch",
+    "type": "tsc"
   },
   "peerDependencies": {
     "@reduxjs/toolkit": ">=1.4.0 <2"
   },
   "devDependencies": {
-    "@vmw/eslint-config-vmware-react": "0.2.1",
-    "@types/jest": "26.0.20",
     "@reduxjs/toolkit": "1.5.0",
-    "husky": "4.3.8",
+    "@types/jest": "26.0.21",
+    "@typescript-eslint/parser": "4.19.0",
+    "@vmw/eslint-config-vmware-react": "0.2.2",
+    "eslint": "7.22.0",
+    "husky": "5.2.0",
     "immer": ">=8.0.1",
-    "node-notifier": ">=8.0.1",
-    "tsdx": "0.14.1",
+    "jest": "26.6.3",
+    "node-notifier": ">=9.0.1",
     "tslib": "2.1.0",
-    "typescript": "4.1.3"
+    "ts-jest": "26.5.4",
+    "typescript": "4.2.3"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint src"
+      "pre-commit": "npm run lint"
     }
   },
   "prettier": {
@@ -71,6 +81,7 @@
   },
   "sideEffects": false,
   "jest": {
+    "preset": "ts-jest",
     "collectCoverageFrom": [
       "src/**/*.ts",
       "!src/**/index.ts"

@@ -1,3 +1,9 @@
+const OFF = 0;
+
 module.exports = {
-  extends: '@vmw/vmware-react',
+  extends: ['@vmw/vmware-react'],
+  root: true,
+  rules: {
+    '@typescript-eslint/no-explicit-any': OFF,
+  },
 };

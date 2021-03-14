@@ -3,7 +3,7 @@
 
 import { PayloadAction, createAction } from '@reduxjs/toolkit';
 import { createSlice } from './create-slice';
-import { rootSliceGroup } from './root-slice-group';
+import { rootSliceGroup } from './create-slice-group';
 
 describe('createSlice', () => {
   const initialState = { value: 10 };
@@ -11,14 +11,14 @@ describe('createSlice', () => {
 
   it('initialState is required', () => {
     const name = '$test1';
-    // @ts-ignore
+    // @ts-expect-error: Missing initialState
     expect(() => createSlice({ name })).toThrow(
       'initialState is required in createSliceOptions.'
     );
   });
 
   it('name is required', () => {
-    // @ts-ignore
+    // @ts-expect-error: Missing name
     expect(() => createSlice({ initialState })).toThrow(
       'name is required in createSliceOptions.'
     );
@@ -53,7 +53,7 @@ describe('createSlice', () => {
     });
     expect(sliceState).toEqual(initialState);
 
-    sliceState = slice.reducer(initialState, actions.double());
+    sliceState = slice.reducer(initialState, actions.doubleAction());
     expect(sliceState).toEqual({ value: 20 });
   });
 
@@ -66,7 +66,7 @@ describe('createSlice', () => {
         state.value += action.payload;
       },
     });
-    const sliceState = slice.reducer(initialState, actions.add(2));
+    const sliceState = slice.reducer(initialState, actions.addAction(2));
     expect(sliceState).toEqual({ value: 12 });
   });
 
@@ -82,7 +82,7 @@ describe('createSlice', () => {
         };
       },
     });
-    let sliceState = slice.reducer(initialState, actions.add(2));
+    let sliceState = slice.reducer(initialState, actions.addAction(2));
     expect(sliceState).toEqual({ value: 12 });
 
     sliceState = slice.reducer(sliceState, {
@@ -136,7 +136,7 @@ describe('createSlice', () => {
         };
       },
     });
-    expect(actions.double.toString()).toEqual(`double_${name}`);
+    expect(actions.doubleAction.type).toEqual(`double_${name}`);
   });
 
   it('addCaseReducers action type uses RTK format', () => {
@@ -155,7 +155,7 @@ describe('createSlice', () => {
         };
       },
     });
-    expect(actions.double.toString()).toEqual(`${name}/double`);
+    expect(actions.doubleAction.type).toEqual(`${name}/double`);
   });
 
   let nextCount = 0;
@@ -167,7 +167,7 @@ describe('createSlice', () => {
       name,
     });
     const actions = slice.addCaseReducers({
-      testAction: {
+      test: {
         prepare(text: string) {
           return { payload: { count: ++nextCount, text } };
         },
