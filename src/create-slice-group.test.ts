@@ -1,12 +1,11 @@
 /* Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: MIT */
 
-import { createSliceGroup } from './create-slice-group';
-import { rootSliceGroup } from './root-slice-group';
+import { createSliceGroup, rootSliceGroup } from './create-slice-group';
 
 describe('createSliceGroup', () => {
   it('name is required', () => {
-    // @ts-ignore
+    // @ts-expect-error: Missing options
     expect(() => createSliceGroup()).toThrow(
       'name is required in createSliceGroupOptions.'
     );
@@ -23,7 +22,6 @@ describe('createSliceGroup', () => {
   });
 
   it('Slice Group name must NOT contain path separator', () => {
-    // @ts-ignore
     expect(() => createSliceGroup({ name: 'a/b' })).toThrow(
       "SliceGroup 'a/b' name cannot contain path separator '/'."
     );
@@ -43,5 +41,18 @@ describe('createSliceGroup', () => {
     expect(rootSliceGroup.addReducers).toHaveBeenCalledWith({
       [name]: sliceGroup.reducer,
     });
+  });
+
+  it('add to a given parent SliceGroup', () => {
+    const myRootGroup = createSliceGroup({ name: '/' });
+    expect(myRootGroup.path).toBe('/');
+
+    jest.spyOn(myRootGroup, 'addReducers');
+    const name = 'testG4';
+    const sliceGroup = createSliceGroup({ name, parent: myRootGroup });
+    expect(myRootGroup.addReducers).toHaveBeenCalledWith({
+      [name]: sliceGroup.reducer,
+    });
+    expect(sliceGroup.path).toBe(`/${name}/`);
   });
 });

@@ -32,7 +32,7 @@ The `caseReducers` argument is an object with values case reducer functions and 
 The action types are formatted based on the `Slice`'s `actionTypeFormat` config option.
 Then `addCaseReducers` generates action creators for each action type.
 The type of the payload will be based on the type expected in the case reducer function.
-`addCaseReducers` returns an 'actions' object with the same actionKeys but where the values are the generates action creators.
+`addCaseReducers` returns an 'actions' object with keys `${actionKey}Action` and values are the action creators.
 The action creators are generated using the <a href="https://redux-toolkit.js.org/api/createAction" target="_blank">Redux Toolkit's createAction()</a> function.
 
 ### `addExtraReducers(extraReducers)`
@@ -82,5 +82,6 @@ The `Slice`'s selector uses the `parentPath` to walk up the ancestors SliceGroup
 
 ### `selectors`
 
-When `initialState` is an object `selectors` is an object with the same
-field name keys, and values Selector functions that return field's value.
+When `initialState` is an object, `selectors` is an object with
+keys `${propertyName}Selector` for each property name in the `initialState` object,
+and values Selector functions that return the property's value.
