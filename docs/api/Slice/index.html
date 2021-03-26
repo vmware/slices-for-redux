@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width">
 <meta name="generator" content="Docusaurus">
 
-<script type="text/javascript">/*<![CDATA[*/window.__chunkMapping={"17896441":["/slices-for-redux/17896441.adb727cc.js"],"76366398":["/slices-for-redux/76366398.184a1a75.js"],"main":["/slices-for-redux/main.4bd4fa36.js"],"0502ccef":["/slices-for-redux/0502ccef.21a664c4.js"],"055cdc0f":["/slices-for-redux/055cdc0f.1e822307.js"],"0eabd596":["/slices-for-redux/0eabd596.5067e3b6.js"],"1be78505":[],"316fce65":["/slices-for-redux/316fce65.6e013a0b.js"],"34c687fc":["/slices-for-redux/34c687fc.4987e026.js"],"3f3374c0":["/slices-for-redux/3f3374c0.fb1d8d93.js"],"572f3558":["/slices-for-redux/572f3558.d4e7fba7.js"],"7d169303":["/slices-for-redux/7d169303.20de863c.js"],"a382b2c0":["/slices-for-redux/a382b2c0.f044943d.js"],"b1a03eb7":["/slices-for-redux/b1a03eb7.30efe3b7.js"],"c13630ee":["/slices-for-redux/c13630ee.35fdc453.js"],"c31671b0":["/slices-for-redux/c31671b0.99ddd601.js"],"c4f5d8e4":["/slices-for-redux/c4f5d8e4.c1aa798a.js"],"c9d20a96":["/slices-for-redux/c9d20a96.837fbfc8.js"],"d6663db5":["/slices-for-redux/d6663db5.1ef267b9.js"]};/*]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/window.__chunkMapping={"17896441":["/slices-for-redux/17896441.d9c01d76.js"],"main":["/slices-for-redux/main.68da77ff.js"],"055cdc0f":["/slices-for-redux/055cdc0f.c574decd.js"],"1be78505":[],"34c687fc":["/slices-for-redux/34c687fc.175d0744.js"],"3f3374c0":["/slices-for-redux/3f3374c0.c866c377.js"],"572f3558":["/slices-for-redux/572f3558.b4c343a5.js"],"7d169303":["/slices-for-redux/7d169303.5ef8d400.js"],"a382b2c0":["/slices-for-redux/a382b2c0.cbc8e005.js"],"b1a03eb7":["/slices-for-redux/b1a03eb7.4fec6d47.js"],"c13630ee":["/slices-for-redux/c13630ee.c5007725.js"],"c31671b0":["/slices-for-redux/c31671b0.1f8ba817.js"],"c4f5d8e4":["/slices-for-redux/c4f5d8e4.c4167ea3.js"],"d6663db5":["/slices-for-redux/d6663db5.e0ed6570.js"]};/*]]>*/</script>
 
 <title data-react-helmet="true">Slice</title>
 
@@ -14,7 +14,7 @@
 <link data-react-helmet="true" rel="shortcut icon" href="/slices-for-redux/img/favicon.ico"/>
 
 
-<link rel="stylesheet" type="text/css" href="/slices-for-redux/styles.5730193a.css" />
+<link rel="stylesheet" type="text/css" href="/slices-for-redux/styles.203e4f30.css" />
 
 </head>
 <body >
@@ -25,7 +25,7 @@
 The action types are formatted based on the <code>Slice</code>&#x27;s <code>actionTypeFormat</code> config option.
 Then <code>addCaseReducers</code> generates action creators for each action type.
 The type of the payload will be based on the type expected in the case reducer function.
-<code>addCaseReducers</code> returns an &#x27;actions&#x27; object with the same actionKeys but where the values are the generates action creators.
+<code>addCaseReducers</code> returns an &#x27;actions&#x27; object with keys <code>${actionKey}Action</code> and values are the action creators.
 The action creators are generated using the <a href="https://redux-toolkit.js.org/api/createAction" target="_blank">Redux Toolkit&#x27;s createAction()</a> function.</p><h3><a aria-hidden="true" tabindex="-1" class="anchor" id="addextrareducersextrareducers"></a><a aria-hidden="true" tabindex="-1" class="hash-link" href="#addextrareducersextrareducers" title="Direct link to heading">#</a><code>addExtraReducers(extraReducers)</code></h3><p>Like <code>caseReducers</code>, <code>extraReducers</code> should be an object containing Redux case reducer functions. However, the keys should be string action type constants.
 <code>addExtraReducers</code> will not auto-generate action types nor action creators for extraReducers and it has no return value.</p><h3><a aria-hidden="true" tabindex="-1" class="anchor" id="createactionactionkey"></a><a aria-hidden="true" tabindex="-1" class="hash-link" href="#createactionactionkey" title="Direct link to heading">#</a><code>createAction(actionKey)</code></h3><p>A utility function to create an action creator for the given action key
 string.<br/>
@@ -43,25 +43,26 @@ Given the Store&#x27;s state it returns the slice of state.<br/>
 <!-- -->If in the Store&#x27;s state the slice of state is undefined,
 then it returns the value defined in the <code>Slice</code>&#x27;s <code>initialState</code> config option.<br/>
 <!-- -->A Slice may exist under one or more nested SliceGroups.
-The <code>Slice</code>&#x27;s selector uses the <code>parentPath</code> to walk up the ancestors SliceGroup names and return the slice of state or the <code>initialState</code> if undefined.</p><h3><a aria-hidden="true" tabindex="-1" class="anchor" id="selectors"></a><a aria-hidden="true" tabindex="-1" class="hash-link" href="#selectors" title="Direct link to heading">#</a><code>selectors</code></h3><p>When <code>initialState</code> is an object <code>selectors</code> is an object with the same
-field name keys, and values Selector functions that return field&#x27;s value.</p></div></article><div class="margin-vert--lg"><nav class="pagination-nav"><div class="pagination-nav__item"><a class="pagination-nav__link" href="/slices-for-redux/docs/api/createSlice"><h5 class="pagination-nav__link--sublabel">Previous</h5><h4 class="pagination-nav__link--label">« <!-- -->createSlice</h4></a></div><div class="pagination-nav__item pagination-nav__item--next"><a class="pagination-nav__link" href="/slices-for-redux/docs/api/createSliceGroup"><h5 class="pagination-nav__link--sublabel">Next</h5><h4 class="pagination-nav__link--label">createSliceGroup<!-- --> »</h4></a></div></nav></div></div></div><div class="col col--3"><div class="tableOfContents_TbNY"><ul class="contents contents__left-border"><li><a href="#properties" class="contents__link">Properties</a><ul class=""><li><a href="#addcasereducerscasereducers" class="contents__link"><code>addCaseReducers(caseReducers)</code></a></li><li><a href="#addextrareducersextrareducers" class="contents__link"><code>addExtraReducers(extraReducers)</code></a></li><li><a href="#createactionactionkey" class="contents__link"><code>createAction(actionKey)</code></a></li><li><a href="#getactiontypeactionkey" class="contents__link"><code>getActionType(actionKey)</code></a></li><li><a href="#name" class="contents__link"><code>name</code></a></li><li><a href="#parentpath" class="contents__link"><code>parentPath</code></a></li><li><a href="#reducer" class="contents__link"><code>reducer</code></a></li><li><a href="#selector" class="contents__link"><code>selector</code></a></li><li><a href="#selectors" class="contents__link"><code>selectors</code></a></li></ul></li></ul></div></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="row footer__links"><div class="col footer__col"><h4 class="footer__title">Docs</h4><ul class="footer__items"><li class="footer__item"><a class="footer__link-item" href="/slices-for-redux/docs/introduction/quick-start">Quick Start</a></li><li class="footer__item"><a class="footer__link-item" href="/slices-for-redux/docs/api/createSlice">API Reference</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">Community</h4><ul class="footer__items"><li class="footer__item"><a class="footer__link-item" target="_blank" rel="noopener noreferrer" href="http://stackoverflow.com/questions/tagged/slices-for-redux">Stack Overflow</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">Social</h4><ul class="footer__items"><li class="footer__item"><a class="footer__link-item" target="_blank" rel="noopener noreferrer" href="https://github.com/vmware/slices-for-redux">GitHub</a></li></ul></div></div><div class="text--center">Copyright © 2020 VMware, Inc. and other contributors.</div></div></footer>
+The <code>Slice</code>&#x27;s selector uses the <code>parentPath</code> to walk up the ancestors SliceGroup names and return the slice of state or the <code>initialState</code> if undefined.</p><h3><a aria-hidden="true" tabindex="-1" class="anchor" id="selectors"></a><a aria-hidden="true" tabindex="-1" class="hash-link" href="#selectors" title="Direct link to heading">#</a><code>selectors</code></h3><p>When <code>initialState</code> is an object, <code>selectors</code> is an object with
+keys <code>${propertyName}Selector</code> for each property name in the <code>initialState</code> object,
+and values Selector functions that return the property&#x27;s value.</p></div></article><div class="margin-vert--lg"><nav class="pagination-nav"><div class="pagination-nav__item"><a class="pagination-nav__link" href="/slices-for-redux/docs/api/createSlice"><h5 class="pagination-nav__link--sublabel">Previous</h5><h4 class="pagination-nav__link--label">« <!-- -->createSlice</h4></a></div><div class="pagination-nav__item pagination-nav__item--next"><a class="pagination-nav__link" href="/slices-for-redux/docs/api/createSliceGroup"><h5 class="pagination-nav__link--sublabel">Next</h5><h4 class="pagination-nav__link--label">createSliceGroup<!-- --> »</h4></a></div></nav></div></div></div><div class="col col--3"><div class="tableOfContents_TbNY"><ul class="contents contents__left-border"><li><a href="#properties" class="contents__link">Properties</a><ul class=""><li><a href="#addcasereducerscasereducers" class="contents__link"><code>addCaseReducers(caseReducers)</code></a></li><li><a href="#addextrareducersextrareducers" class="contents__link"><code>addExtraReducers(extraReducers)</code></a></li><li><a href="#createactionactionkey" class="contents__link"><code>createAction(actionKey)</code></a></li><li><a href="#getactiontypeactionkey" class="contents__link"><code>getActionType(actionKey)</code></a></li><li><a href="#name" class="contents__link"><code>name</code></a></li><li><a href="#parentpath" class="contents__link"><code>parentPath</code></a></li><li><a href="#reducer" class="contents__link"><code>reducer</code></a></li><li><a href="#selector" class="contents__link"><code>selector</code></a></li><li><a href="#selectors" class="contents__link"><code>selectors</code></a></li></ul></li></ul></div></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="row footer__links"><div class="col footer__col"><h4 class="footer__title">Docs</h4><ul class="footer__items"><li class="footer__item"><a class="footer__link-item" href="/slices-for-redux/docs/introduction/quick-start">Quick Start</a></li><li class="footer__item"><a class="footer__link-item" href="/slices-for-redux/docs/api/createSlice">API Reference</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">Community</h4><ul class="footer__items"><li class="footer__item"><a class="footer__link-item" target="_blank" rel="noopener noreferrer" href="http://stackoverflow.com/questions/tagged/slices-for-redux">Stack Overflow</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">Social</h4><ul class="footer__items"><li class="footer__item"><a class="footer__link-item" target="_blank" rel="noopener noreferrer" href="https://github.com/vmware/slices-for-redux">GitHub</a></li></ul></div></div><div class="text--center">Copyright © 2021 VMware, Inc. and other contributors.</div></div></footer>
 </div>
 
-<script type="text/javascript" src="/slices-for-redux/styles.020d63e7.js"></script>
+<script type="text/javascript" src="/slices-for-redux/styles.10687929.js"></script>
 
-<script type="text/javascript" src="/slices-for-redux/runtime~main.167ea913.js"></script>
+<script type="text/javascript" src="/slices-for-redux/runtime~main.ae9558ed.js"></script>
 
-<script type="text/javascript" src="/slices-for-redux/main.4bd4fa36.js"></script>
+<script type="text/javascript" src="/slices-for-redux/main.68da77ff.js"></script>
 
-<script type="text/javascript" src="/slices-for-redux/1.d6e6e0aa.js"></script>
+<script type="text/javascript" src="/slices-for-redux/1.b1070bda.js"></script>
 
-<script type="text/javascript" src="/slices-for-redux/21.0d740ec0.js"></script>
+<script type="text/javascript" src="/slices-for-redux/16.a0728c66.js"></script>
 
-<script type="text/javascript" src="/slices-for-redux/b1a03eb7.30efe3b7.js"></script>
+<script type="text/javascript" src="/slices-for-redux/b1a03eb7.4fec6d47.js"></script>
 
-<script type="text/javascript" src="/slices-for-redux/17896441.adb727cc.js"></script>
+<script type="text/javascript" src="/slices-for-redux/17896441.d9c01d76.js"></script>
 
-<script type="text/javascript" src="/slices-for-redux/7d169303.20de863c.js"></script>
+<script type="text/javascript" src="/slices-for-redux/7d169303.5ef8d400.js"></script>
 
 
 </body>
