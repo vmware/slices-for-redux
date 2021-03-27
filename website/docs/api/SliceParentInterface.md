@@ -7,7 +7,7 @@ hide_title: true
 
 # `SliceParent Interface`
 
-The `SliceParent` is the interface that describes the `parent` property in the options argument of [`createSlice`](/slices-for-redux/docs/api/createSlice) and [`createSliceGroup`](/slices-for-redux/docs/api/createSliceGroup).
+The `SliceParent` is the interface that describes the _parent_ property in the options argument of [`createSlice`](/slices-for-redux/docs/api/createSlice) and [`createSliceGroup`](/slices-for-redux/docs/api/createSliceGroup).
 
 ```ts
 interface SliceParent {
@@ -18,7 +18,7 @@ interface SliceParent {
 
 ### `addReducers`
 
-A function that the [`Slice`](/slices-for-redux/docs/api/Slice) or [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup) can use to add its `reducer` to the parent's reducer.
+A function that the [`Slice`](/slices-for-redux/docs/api/Slice) or [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup) can use to add its _reducer_ to the parent's reducer.
 
 ### `path`
 

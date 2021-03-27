@@ -1,6 +1,21 @@
+/* eslint-disable sort-keys */
 // site configuration options.
 
 module.exports = {
+  presets: [
+    [
+      '@docusaurus/preset-classic',
+      {
+        docs: {
+          sidebarPath: require.resolve('./sidebars.js'),
+        },
+        theme: {
+          customCss: require.resolve('./src/css/custom.css'),
+        },
+      },
+    ],
+  ],
+
   title: 'Slices for Redux',
   tagline: 'Slices and SliceGroups that scale. Reduce boilerplate. Split code.',
   url: 'https://vmware.github.io',
@@ -13,9 +28,6 @@ module.exports = {
   projectName: 'slices-for-redux',
 
   themeConfig: {
-    disableDarkMode: true,
-
-    // Added
     prism: {
       theme: require('./src/js/monokaiTheme.js'),
     },
@@ -26,7 +38,7 @@ module.exports = {
         alt: 'Slices for Redux Logo',
         src: 'img/slices-for-redux.svg',
       },
-      links: [
+      items: [
         {
           to: 'docs/introduction/quick-start',
           label: 'Quick Start',
@@ -77,26 +89,7 @@ module.exports = {
           ],
         },
       ],
-      // logo: {
-      //   alt: 'Facebook Open Source Logo',
-      //   src: 'https://docusaurus.io/img/oss_logo.png',
-      //   href: 'https://opensource.facebook.com/',
-      // },
       copyright: `Copyright © ${new Date().getFullYear()} VMware, Inc. and other contributors.`,
     },
   },
-
-  presets: [
-    [
-      '@docusaurus/preset-classic',
-      {
-        docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
-        },
-        theme: {
-          customCss: require.resolve('./src/css/custom.css'),
-        },
-      },
-    ],
-  ],
 };
