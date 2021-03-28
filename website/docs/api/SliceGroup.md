@@ -45,4 +45,4 @@ Use the `SliceGroup`'s _addReducers_ function to add reducers to it.
 
 ## Note
 
-A `SliceGroup` is a [`SliceParent`](/slices-for-redux/docs/api/SliceParentInterface) that exposes its reducer.
+A `SliceGroup` is a [`SliceParent`](/slices-for-redux/docs/api/SliceParent) that exposes its reducer.

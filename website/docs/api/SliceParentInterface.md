@@ -1,5 +1,5 @@
 ---
-id: SliceParentInterface
+id: SliceParent
 title: SliceParent Interface
 sidebar_label: SliceParent Interface
 hide_title: true
