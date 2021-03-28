@@ -37,7 +37,7 @@ this SliceGroup's _reducer_.
 
 A string expressing the location of this `SliceGroup`.
 
-### _reducer_
+### `reducer`
 
 The `SliceGroup`'s reducer.  
 It is a "mutable combine reducer".  

@@ -36,7 +36,7 @@ function createSliceGroup({
 
 The [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup)'s name (or '/' to create a root SliceGroup).  
 With the exception of creating a root SliceGroup, the _name_ cannot contain the path separator '/'.  
-The _name_ is used to build the _path_ property of the [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup)'s.
+The _name_ is used to build the _path_ property of the [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup).
 
 ### _parent_
 

@@ -18,7 +18,7 @@ interface SliceParent {
 
 ### `addReducers`
 
-A function that the [`Slice`](/slices-for-redux/docs/api/Slice) or [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup) can use to add its _reducer_ to the parent's reducer.
+A function that child [`Slices`](/slices-for-redux/docs/api/Slice) and [`SliceGroups`](/slices-for-redux/docs/api/SliceGroup) can use to add their _reducer_ to parent reducer.
 
 ### `path`
 
