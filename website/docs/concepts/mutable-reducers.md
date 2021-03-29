@@ -17,7 +17,7 @@ Large applications use code splitting to incrementally load code chunks.
 Code inside a dynamically loaded chunk needs a way to add its slice reducers to the rootReducer.
 Current solutions involve creating a new "root-reducer" and calling <a href="https://redux.js.org/api/store#replacereducernextreducer" target="_blank">store.replaceReducer(newReducer)</a>.
 
-**Slices for Redux**'s "root-reducer" is a "mutable combine reducer". Slice reducers can be added to the "root-reducer" as needed. This not only simplifies the code that one writes but actually promotes code splitting to occur in the first place. Importing and combining reducers at startup can be avoided for the majority of slice reducers. Slice reducers can add themselves to the "root-reducer" when their code is loaded.
+**Slices for Redux**'s "root-reducer" is a combine reducer that is mutable. Slice reducers can be added to the "root-reducer" as needed. This not only simplifies the code that one writes but actually promotes code splitting to occur in the first place. Importing and combining reducers at startup can be avoided for the majority of slice reducers. Slice reducers can add themselves to the "root-reducer" when their code is loaded.
 
 Only those reducers that are not adding themselves need to be imported and explicitly added to the rootReducer.
 There is no longer the need to import and modify the "reducers.js" file each time a new reducer is written. This removes the boilerplate code inside the "reducers.js" file.
@@ -28,7 +28,7 @@ the bundler will be able to defer more code, reducing the size of the first chun
 ## Example
 
 Using the `addReducers` function of the [`rootSliceGroup`](/slices-for-redux/docs/api/rootSliceGroup)
-one can add one or more slice reducers to the "root-reducer" before or after the Redux store was created.
+one can add one or more slice reducers to the "root-reducer" before and after the Redux store is created.
 
 ```js
 import { configureStore } from '@reduxjs/toolkit';

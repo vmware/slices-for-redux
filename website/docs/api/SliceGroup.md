@@ -40,7 +40,7 @@ A string expressing the location of this `SliceGroup`.
 ### `reducer`
 
 The `SliceGroup`'s reducer.  
-It is a "mutable combine reducer".  
+It is a combine reducer that is mutable.  
 Use the `SliceGroup`'s _addReducers_ function to add reducers to it.
 
 ## Note
