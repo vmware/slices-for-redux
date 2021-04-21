@@ -24,8 +24,8 @@ The **Slices for Redux** package intent is to make it easy to write predictable 
 
 **Slices for Redux** includes:
 
-- [`rootSliceGroup`](/slices-for-redux/docs/api/rootSliceGroup): Object that holds a "mutable combine reducer" allowing "slice reducers" to be added as their code is imported, removes code boilerplate and promotes code splitting.
-- [`createSlice()`](/slices-for-redux/docs/api/createSlice): Function that creates a Slice with basic selectors and a mutable case reducer to promote writing sets of "case reducers" in separate files.
+- [`rootSliceGroup`](/slices-for-redux/docs/api/rootSliceGroup): Object that holds a mutable "root-reducer" allowing slice reducers to be added as their code is imported, removes code boilerplate and promotes code splitting.
+- [`createSlice()`](/slices-for-redux/docs/api/createSlice): Function that creates a Slice with basic selectors and a mutable "case-reducer" to promote writing sets of case reducers in separate files.
 - [`createSliceGroup()`](/slices-for-redux/docs/api/createSliceGroup): Function that creates a SliceGroup to organize and ease the navigation of a large Redux State object.
 
 ## Installation
@@ -65,12 +65,20 @@ With code like this:
 import { rootSliceGroup } from 'slices-for-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-const { reducer } = rootSliceGroup.addReducers({
+rootSliceGroup.addReducers({
   [homeSlice.name]: homeSlice.reducer,
   [todoSlice.name]: todoSlice.reducer,
 });
 
 const store = configureStore({
-  reducer,
+  reducer: rootSliceGroup.reducer,
 });
+```
+
+And later as lazy loaded module are loaded they can add their reducers to the "root-reducer" via the rootSliceGroup.
+
+```ts
+rootSliceGroup.addReducers({ [sliceName]: sliceReducer });
+
+rootSliceGroup.addReducers({ slice2: sliceReducer2, slice3: sliceReducer3 });
 ```

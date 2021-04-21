@@ -7,11 +7,12 @@ hide_title: true
 
 # `createSliceGroup`
 
-Slice Groups are used to group Slices under some arbitrary named group.
-This can help organize and ease navigation of a large store state object
-within the Redux Dev Tools.
+A function that accepts a _name_ and optionally a _parent_ and creates a [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup) object.
+The default _parent_ is the [`rootSliceGroup`](/slices-for-redux/docs/api/rootSliceGroup).
 
-`createSliceGroup` creates a [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup) object.
+SliceGroups are used to group Slices under some arbitrary named group.
+This grouping of slices helps organize a large store and eases its navigation
+in the <a href="https://redux-toolkit.js.org/api/configurestore" target="_blank">Redux Dev Tools</a>.
 
 ## Parameters
 
@@ -34,16 +35,16 @@ function createSliceGroup({
 ### `name`
 
 The [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup)'s name (or '/' to create a root SliceGroup).  
-With the exception of creating a root SliceGroup, the name cannot contain the path separator '/'.  
-The name is used to build the [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup)'s path property.
+With the exception of creating a root SliceGroup, the _name_ cannot contain the path separator '/'.  
+The _name_ is used to build the _path_ property of the [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup).
 
-### `parent`
+### _parent_
 
 optional - The [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup)'s parent.  
 Default value is: [`rootSliceGroup`](/slices-for-redux/docs/api/rootSliceGroup)  
-When `parent` is [`rootSliceGroup`](/slices-for-redux/docs/api/rootSliceGroup) this [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup)'s `reducer` will be added to the [`rootReducer`](/slices-for-redux/docs/api/rootReducer).  
-When `parent` is a [`SliceParent`](/slices-for-redux/docs/api/SliceParent), this [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup)'s `reducer` will be added to that parent's reducer.  
-When `parent` is a string, it represents the parent's path, and this
+When _parent_ is [`rootSliceGroup`](/slices-for-redux/docs/api/rootSliceGroup) the created [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup)'s _reducer_ will be added to the "root-reducer" (the reducer of the rootSliceGroup).  
+When _parent_ is a [`SliceParent`](/slices-for-redux/docs/api/SliceParent), the created [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup)'s _reducer_ will be added to that parent's reducer.  
+When _parent_ is a string, it represents the parent's path, and the created
 [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup)'s reducer will needs to be manually added to that parent's reducer.
 
 ## Return Value

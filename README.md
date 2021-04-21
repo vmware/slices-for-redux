@@ -26,8 +26,8 @@ It was created to:
 
 **Slices for Redux** includes:
 
-- `rootSliceGroup`: Object that holds a "mutable combine reducer" allowing "slice reducers" to be added as their code is imported, removes code boilerplate and promotes code splitting.
-- `createSlice()`: Function that creates a Slice with basic selectors and a mutable case reducer to promote writing sets of "case reducers" in separate files.
+- `rootSliceGroup`: Object that holds a mutable "root-reducer" allowing slice reducers to be added as their code is imported, removes code boilerplate and promotes code splitting.
+- `createSlice()`: Function that creates a Slice with basic selectors and a mutable "case-reducer" to promote writing sets of case reducers in separate files.
 - `createSliceGroup()`: Function that creates a SliceGroup to organize and ease the navigation of a large Redux State object.
 
 ## Documentation
