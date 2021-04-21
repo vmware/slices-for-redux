@@ -8,7 +8,7 @@ module.exports = {
       'api/Slice',
       'api/createSliceGroup',
       'api/SliceGroup',
-      'api/SliceParentInterface',
+      'api/SliceParent',
     ],
   },
 };

@@ -7,12 +7,11 @@ hide_title: true
 
 # `rootSliceGroup`
 
-The `rootSliceGroup` is the default root `SliceGroup`.
 The `rootSliceGroup` is the default `parent` unless a different `parent` is given when creating a [`Slice`](/slices-for-redux/docs/api/Slice) or [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup).
 
-The `rootSliceGroup` holds and manages the "root-reducer".
+The `rootSliceGroup`'s `reducer` is the "root-reducer" that must be passed to createStore from Redux or to configureStore from Redux Toolkit.
 
-Other reducers are added to the "root-reducer" via the `addReducers` function property of the `rootSliceGroup`. But in most cases this will be done automatically when creating new `Slices` and `SliceGroups` with `createSlice` and `createSliceGroup`.
+Other reducers are added to this `reducer` (the "root-reducer") using the `addReducers` function of the `rootSliceGroup`. But in most cases this will be done automatically when creating new `Slices` and `SliceGroups` with `createSlice` and `createSliceGroup`.
 
 The `rootSliceGroup` is an object that looks like:
 
@@ -20,7 +19,7 @@ The `rootSliceGroup` is an object that looks like:
 {
     addReducers: (reducers: Reducers) => void,
     path: '/',
-    reducer: Reducer,
+    reducer: Reducer, // the "root-reducer"
 }
 ```
 
@@ -28,7 +27,7 @@ The `rootSliceGroup` is an object that looks like:
 
 ### `addReducers`
 
-A function that adds one or more reducer to the rootReducer.  
+A function that adds one or more reducer to the "root-reducer".  
 Accepts an object where the keys are names and the values are reducer functions.
 
 ### `path`
@@ -62,17 +61,20 @@ const store = configureStore({
 ```
 
 ```ts
-// As needed add additional reducers later
+// As needed add additional reducers after the store was created
+// E.g. when a lazy loaded module is loaded.
 rootSliceGroup.addReducers({
   slice2: reducer2,
 });
 ```
 
-## Other Slice Groups
+## Other SliceGroups
 
-The `rootSliceGroup` is the top most group of Slices.
+The `rootSliceGroup` is the default top most group of Slices.
 
 By default [`createSlice()`](/slices-for-redux/docs/api/createSlice) creates a [`Slice`](/slices-for-redux/docs/api/Slice) that manages a "slice of state" that exists directly under the root of the store state object.
 
-With [`createSliceGroup()`](/slices-for-redux/docs/api/createSliceGroup) one can create other [`SliceGroups`](/slices-for-redux/docs/api/SliceGroup) which allow grouping Slices under a group name.
+With [`createSliceGroup()`](/slices-for-redux/docs/api/createSliceGroup) one can create other [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup) which allow grouping Slices under a group name.
 In that case a [`Slice`](/slices-for-redux/docs/api/Slice) will manage a "slice of state" that exists under that [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup)'s name.
+
+In the rare case (not recommended) where multiple Redux stores are used, one can still use the `rootSliceGroup` for one store, and then create another root [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup) for each additional store with [`createSliceGroup({ name: '/' })`](/slices-for-redux/docs/api/createSliceGroup).
