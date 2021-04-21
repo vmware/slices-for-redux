@@ -1,6 +1,6 @@
 {
   "name": "@vmw/slices-for-redux",
-  "version": "0.5.0-beta.1",
+  "version": "0.5.0-beta.2",
   "description": "Slices and SliceGroups that scale. Reduce boilerplate. Split code.",
   "author": "VMware, Inc",
   "license": "MIT",
@@ -34,15 +34,16 @@
   "scripts": {
     "clean": "rimraf lib",
     "clean-modules": "rimraf node_modules",
-    "build": "npm run clean && npm run build:cjs && npm run build:esm",
+    "build": "yarn clean && yarn build:cjs && yarn build:esm",
     "build:cjs": "tsc -p tsconfig-cjs.json",
     "build:esm": "tsc -p tsconfig-esm.json",
     "format": "prettier --write \"src/*.ts\" \"**/*.md\"",
     "format:check": "prettier --list-different \"src/*.ts\" \"**/*.md\"",
+    "git-pre-commit": "yarn lint",
     "lint": "eslint --ext .js,.ts src --resolve-plugins-relative-to \"node_modules/@vmw/eslint-config-vmware-react\"",
-    "prepare": "npm run lint && npm run format:check && npm run test-coverage && npm run build",
-    "publish:latest": "npm publish",
-    "publish:next": "npm publish --tag next",
+    "prepare": "husky install && yarn lint && yarn format:check && yarn test-coverage && yarn build",
+    "publish:latest": "yarn publish",
+    "publish:next": "yarn publish --tag next",
     "start": "tsc --watch",
     "test": "jest",
     "test-coverage": "jest --coverage",
@@ -53,23 +54,16 @@
     "@reduxjs/toolkit": ">=1.4.0 <2"
   },
   "devDependencies": {
-    "@reduxjs/toolkit": "1.5.0",
-    "@types/jest": "26.0.21",
-    "@typescript-eslint/parser": "4.19.0",
-    "@vmw/eslint-config-vmware-react": "0.2.2",
-    "eslint": "7.22.0",
-    "husky": "5.2.0",
-    "immer": ">=8.0.1",
+    "@reduxjs/toolkit": "1.5.1",
+    "@types/jest": "26.0.22",
+    "@typescript-eslint/parser": "4.22.0",
+    "@vmw/eslint-config-vmware-react": "0.2.3",
+    "eslint": "7.24.0",
+    "husky": "6.0.0",
     "jest": "26.6.3",
-    "node-notifier": ">=9.0.1",
-    "tslib": "2.1.0",
-    "ts-jest": "26.5.4",
-    "typescript": "4.2.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
+    "tslib": "2.2.0",
+    "ts-jest": "26.5.5",
+    "typescript": "4.2.4"
   },
   "prettier": {
     "arrowParens": "always",

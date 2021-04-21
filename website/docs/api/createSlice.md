@@ -2,10 +2,7 @@
 id: createSlice
 title: createSlice
 sidebar_label: createSlice
-hide_title: true
 ---
-
-# `createSlice`
 
 A function that accepts a _name_, an _initialState_, and optionally a _parent_ and creates a [`Slice`](/slices-for-redux/docs/api/Slice) object. The default _parent_ is the [`rootSliceGroup`](/slices-for-redux/docs/api/rootSliceGroup).
 
