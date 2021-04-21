@@ -2,10 +2,7 @@
 id: Slice
 title: Slice
 sidebar_label: Slice
-hide_title: true
 ---
-
-# `Slice`
 
 A `Slice` is an object that looks like:
 

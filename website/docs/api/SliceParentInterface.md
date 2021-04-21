@@ -2,10 +2,7 @@
 id: SliceParent
 title: SliceParent Interface
 sidebar_label: SliceParent Interface
-hide_title: true
 ---
-
-# `SliceParent Interface`
 
 The `SliceParent` is the interface that describes the _parent_ property in the options argument of [`createSlice`](/slices-for-redux/docs/api/createSlice) and [`createSliceGroup`](/slices-for-redux/docs/api/createSliceGroup).
 

@@ -2,10 +2,7 @@
 id: SliceGroup
 title: SliceGroup
 sidebar_label: SliceGroup
-hide_title: true
 ---
-
-# `SliceGroup`
 
 A `SliceGroup` allows grouping several Slices under a given name.
 A `SliceGroup` is similar in concept to a Folder, where the Slices are the files.

@@ -2,10 +2,7 @@
 id: rootSliceGroup
 title: rootSliceGroup
 sidebar_label: rootSliceGroup
-hide_title: true
 ---
-
-# `rootSliceGroup`
 
 The `rootSliceGroup` is the default `parent` unless a different `parent` is given when creating a [`Slice`](/slices-for-redux/docs/api/Slice) or [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup).
 

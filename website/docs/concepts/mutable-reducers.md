@@ -2,10 +2,7 @@
 id: mutable-reducers
 title: Mutable Reducers
 sidebar_label: Mutable Reducers
-hide_title: true
 ---
-
-# Mutable Reducers
 
 Now that we have come to appreciated the benefits of immutability,
 proposing the use of mutable reducers may, at first look, seen as an anti-pattern.  

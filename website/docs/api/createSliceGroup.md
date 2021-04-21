@@ -2,10 +2,7 @@
 id: createSliceGroup
 title: createSliceGroup
 sidebar_label: createSliceGroup
-hide_title: true
 ---
-
-# `createSliceGroup`
 
 A function that accepts a _name_ and optionally a _parent_ and creates a [`SliceGroup`](/slices-for-redux/docs/api/SliceGroup) object.
 The default _parent_ is the [`rootSliceGroup`](/slices-for-redux/docs/api/rootSliceGroup).
