@@ -183,15 +183,15 @@ export function createSlice<State>(
     action: PayloadAction<any>
   ): State {
     const caseReducer = sliceCaseReducersByType[action.type];
+    if (!caseReducer) {
+      return sliceState;
+    }
     if (immer) {
       return createNextState(sliceState, (draft: Draft<State>) => {
-        return caseReducer ? caseReducer(draft, action) : undefined;
-      }) as State;
+        return caseReducer(draft, action) as void;
+      });
     }
-    if (caseReducer) {
-      return (caseReducer as Reducer)(sliceState, action);
-    }
-    return sliceState;
+    return (caseReducer as Reducer)(sliceState, action);
   }
 
   // self-add this Slice's reducer to the parent reducer

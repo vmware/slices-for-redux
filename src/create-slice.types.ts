@@ -89,9 +89,8 @@ type MapAppendAction<O = any> = {
   [P in keyof O & string as `${P}Action`]: O[P];
 };
 
-export type SfrCaseReducerActions<
-  CaseReducers extends SliceCaseReducers<any>
-> = MapAppendAction<CaseReducerActions<CaseReducers>>;
+export type SfrCaseReducerActions<CaseReducers extends SliceCaseReducers<any>> =
+  MapAppendAction<CaseReducerActions<CaseReducers>>;
 
 export type SfrSlice<State> = {
   addCaseReducers<
