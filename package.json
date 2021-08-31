@@ -28,9 +28,10 @@
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "types": "lib/types/index.d.ts",
-  "files": [
-    "lib"
-  ],
+  "browser": {
+    "process": "process/browser"
+  },
+  "files": ["lib"],
   "scripts": {
     "clean": "rimraf lib",
     "clean-modules": "rimraf node_modules",
@@ -62,8 +63,8 @@
     "husky": "6.0.0",
     "jest": "27.0.6",
     "prettier": "2.3.2",
-    "tslib": "2.3.0",
     "ts-jest": "27.0.3",
+    "tslib": "2.3.0",
     "typescript": "4.3.4"
   },
   "resolutions": {
@@ -80,9 +81,9 @@
   "sideEffects": false,
   "jest": {
     "preset": "ts-jest",
-    "collectCoverageFrom": [
-      "src/**/*.ts",
-      "!src/**/index.ts"
-    ]
+    "collectCoverageFrom": ["src/**/*.ts", "!src/**/index.ts"]
+  },
+  "dependencies": {
+    "process": "0.11.10"
   }
 }

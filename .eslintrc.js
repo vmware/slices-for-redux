@@ -5,5 +5,6 @@ module.exports = {
   root: true,
   rules: {
     '@typescript-eslint/no-explicit-any': OFF,
+    'import/no-nodejs-modules': OFF,
   },
 };

@@ -1,6 +1,7 @@
 /* Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: MIT */
 
+import process from 'process';
 import {
   // Use the immer version used by @reduxjs/toolkit
   createNextState,

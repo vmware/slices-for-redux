@@ -1,6 +1,7 @@
 /* Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: MIT */
 
+import process from 'process';
 import { Reducer } from '@reduxjs/toolkit';
 import { PATH_SEPARATOR } from './constants';
 import { createMutableCombineReducer } from './internal/mutable-combine-reducer';

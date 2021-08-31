@@ -1,6 +1,7 @@
 /* Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: MIT */
 
+import process from 'process';
 import { Reducer, AnyAction } from '@reduxjs/toolkit';
 
 type Reducers = { [reducerName: string]: Reducer };
