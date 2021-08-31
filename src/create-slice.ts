@@ -257,7 +257,7 @@ function rtkActionTypeFormat(actionKey: string, names: string[]): string {
 }
 
 function isClientTestEnv() {
-  if (process) {
+  if (globalThis.process !== undefined) {
     const { env } = process;
     return env.NODE_ENV === 'test';
   }
