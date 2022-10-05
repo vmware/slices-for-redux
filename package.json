@@ -1,6 +1,6 @@
 {
   "name": "@vmw/slices-for-redux",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "Slices and SliceGroups that scale. Reduce boilerplate. Split code.",
   "author": "VMware, Inc",
   "license": "MIT",
@@ -68,7 +68,8 @@
   },
   "resolutions": {
     "immer": ">=9.0.6",
-    "path-parse": ">=1.0.7"
+    "path-parse": ">=1.0.7",
+    "minimist": "1.2.6"
   },
   "prettier": {
     "arrowParens": "always",
