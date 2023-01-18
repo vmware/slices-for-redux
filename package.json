@@ -69,7 +69,12 @@
   "resolutions": {
     "immer": ">=9.0.6",
     "path-parse": ">=1.0.7",
-    "minimist": "1.2.6"
+    "minimist": "1.2.6",
+    "minimatch" : "^3.0.5",
+    "json5": "^1.0.2",
+    "json-schema": "^0.4.0",
+    "ansi-regex": "^5.0.1",
+    "tmpl": "^1.0.5"
   },
   "prettier": {
     "arrowParens": "always",
